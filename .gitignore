@@ -20,3 +20,4 @@
 .DS_Store
 .env
 config/database.yml
+public

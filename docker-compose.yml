@@ -1,0 +1,27 @@
+version: '3'
+services:
+  web:
+    build: .
+    volumes:
+      - .:/app
+      - share:/usr/local/bundle
+    ports:
+      - 3001:3000
+    entrypoint:
+      - /root/wait-for-postgres.sh
+      - db
+    command: scripts/start-server.sh
+    depends_on:
+      - db
+
+  db:
+    image: postgres
+    environment:
+      POSTGRES_USER: docker
+      POSTGRES_PASSWORD: password
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
+volumes:
+  share:
+  db_data:
